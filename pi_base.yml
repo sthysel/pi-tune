@@ -1,0 +1,8 @@
+---
+- name: Configure base trimmed-down pi config from standard raspian image 
+  hosts: pi
+  user: pi
+  sudo: yes
+
+  roles: 
+     - trim_pi

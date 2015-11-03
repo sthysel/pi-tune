@@ -1,0 +1,13 @@
+---
+- name: update timezone
+  command: dpkg-reconfigure --frontend noninteractive tzdata
+
+- name: update keyboard
+  command: dpkg-reconfigure --frontend noninteractive keyboard-configuration
+
+- name: update locale
+  command: "{{ item }}"
+  with_items:
+    - "locale-gen --purge {{ locale_lang }}"
+    - localepurge
+    - dpkg-reconfigure --frontend noninteractive locales

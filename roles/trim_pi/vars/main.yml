@@ -1,0 +1,123 @@
+---
+# Configure how much memory is allocated to the GPU (in MB).
+config_gpu_mem: 16
+
+# Whether to allow full 1.2A current to be used via USB.
+config_max_usb_current: 1
+
+# Locale settings.
+locale_timezone: Australia/Perth
+locale_lang: en_US.UTF-8
+keyboard_model: pc104
+keyboard_layout: us
+
+# Networking settings.
+networking_nameservers:
+  - "8.8.8.8"
+  - "8.8.4.4"
+
+# Paths/files to be deleted in the pi user home directory.
+remove_paths_pi_home:
+  - python_games
+  - Desktop
+  - Documents
+  - Downloads
+  - Music
+  - Pictures
+  - Public
+  - Templates
+  - Videos
+  - .minecraft
+  - .asoundrc
+  - .dmrc
+  - .gstreamer-0.10
+  - themes
+  - Xauthority
+
+# Other paths/files to be deleted.
+remove_paths:
+  # Documentation.
+  - /usr/share/doc/
+  - /usr/share/man/
+  # Other.
+  - /opt/vc/src
+  - /usr/share/icons/gnome/icon-theme.cache
+  - /opt/vc/src/hello_pi/hello_video/test.h264
+
+# Packages to be installed
+install_packages:
+  - localepurge
+  - vim
+  - tree
+  - deborphan
+
+# Packages to be removed.
+remove_packages:
+  # X and Desktop environment.
+  - adwaita-icon-theme
+  - alacarte
+  - desktop-base
+  - desktop-file-utils
+  - epiphany-browser*
+  - fontconfig*
+  - fonts*
+  - galculator
+  - gir1.2*
+  - gnome*
+  - gpicview
+  - gsfonts*
+  - gtk*
+  - gvfs*
+  - hicolor-icon-theme
+  - libpango*
+  - libreoffice*
+  - librevenge*
+  - liblightdm*
+  - lightdm*
+  - lx*
+  - nuscratch
+  - omxplayer
+  - openbox
+  - pcmanfm
+  - raspberrypi-artwork
+  - raspberrypi-ui-mods
+  - rc-gui
+  - scratch
+  - xfonts*
+  - xarchiver
+  - xinit
+  - xpdf
+  - xserver*
+  - x11*
+  - zenity*
+  # Multimedia packages.
+  - freepats
+  - gstreamer*
+  - jackd*
+  - pimixer
+  - sonic-pi
+  - supercollider*
+  - timidity
+  - esound-common
+  # Extraneous programming languages.
+  - bluej
+  - greenfoot
+  - groff
+  - idle*
+  - leafpad
+  - pypy-upstream
+  - oracle*
+  - ruby*
+  # Other.
+  - claws-mail*
+  - coinor*
+  - dillo
+  - libopencv*
+  - minecraft-pi
+  - netsurf*
+  - penguinspuzzle
+  - pipanel
+  - python-minecraftpi
+  - python-pifacecommon
+  - squeak*
+  - wolfram-engine

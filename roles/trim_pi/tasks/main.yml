@@ -1,0 +1,88 @@
+---
+- name: Copy over config.txt.
+  template:
+    src: config.txt.j2
+    dest: /boot/config.txt
+    mode: 0755
+
+- name: Back up the network interfaces file.
+  command: cp /etc/network/interfaces /tmp/network-interfaces
+
+- name: Set timezone.
+  copy:
+    content: "{{ locale_timezone }}"
+    dest: /etc/timezone
+    mode: 0644
+    backup: yes
+  notify: update timezone
+
+- name: Configure keyboard layout.
+  template:
+    src: keyboard.j2
+    dest: /etc/default/keyboard
+    mode: 0644
+  notify: update keyboard
+
+- name: Configure locale.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+  notify: update locale
+  with_items:
+    - { src: locale.j2, dest: /etc/default/locale }
+    - { src: locale.gen.j2, dest: /etc/locale.gen }
+
+- name: Set up nameservers.
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    mode: 0644
+
+- name: Update apt cache.
+  apt:
+    update_cache: yes
+    cache_valid_time: 900
+
+- name: Install needed packages.
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: install_packages
+
+- name: Remove unneeded packages.
+  apt:
+    name: "{{ item }}"
+    state: absent
+    purge: yes
+  register: apt_remove_packages
+  with_items: remove_packages
+
+- name: Autoremove unused packages.
+  command: apt-get -y autoremove
+  when: apt_remove_packages.changed
+
+- name: Update all remaining packages.
+  apt:
+    update_cache: yes
+    cache_valid_time: 900
+    upgrade: safe
+
+- name: Ensure certain files and directories are deleted (from pi home).
+  file:
+    path: "/home/pi/{{ item }}"
+    state: absent
+  with_items: remove_paths_pi_home
+
+- name: Ensure certain files and directories are deleted.
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: remove_paths
+
+- name: Restore the network interfaces file.
+  command: cp /tmp/network-interfaces /etc/network/interfaces
+
+- name: Clean apt caches.
+  command: apt-get clean
+
