@@ -1,11 +1,10 @@
 [pi]
+nginx
 adsb
 sprinkler
-nginx
 davis
 bughotel
 
 [weather]
 davis
 bughotel
-
