@@ -1,6 +1,6 @@
 ---
-- name: Configure base trimmed-down pi config from standard raspian image 
-  hosts: pi
+- name: Trim down bloated raspian default install
+  hosts: bughotel 
   user: pi
   sudo: yes
 
