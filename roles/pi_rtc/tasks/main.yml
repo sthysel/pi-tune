@@ -1,0 +1,25 @@
+- name: Install rtc dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python-smbus
+    - i2c-tools
+
+- name: Load rtc modules
+  lineinfile: 
+    dest: /etc/modules
+    line: "{{ item }}" 
+  with_items:
+    - i2c-bcm2708
+    - i2c-dev
+    - rtc-ds1307
+
+- name: Set rtc boot parameters
+  lineinfile: 
+    dest: /boot/config.txt
+    line: "{{ item }}" 
+  with_items:
+    - dtparam=i2c1=on
+    - dtparam=i2c_arm=on
+

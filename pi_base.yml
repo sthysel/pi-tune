@@ -1,8 +1,9 @@
 ---
 - name: Trim down bloated raspian default install
-  hosts: pi 
+  hosts: sdrlab
   user: pi
   sudo: yes
 
   roles: 
-     - trim_pi
+     - pi_trim
+     - pi_rtc
