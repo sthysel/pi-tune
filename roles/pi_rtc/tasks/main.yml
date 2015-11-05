@@ -23,3 +23,13 @@
     - dtparam=i2c1=on
     - dtparam=i2c_arm=on
 
+- name: Set clock source on boot
+  lineinfile: 
+    dest: /etc/rc.local 
+    backup: yes
+    insertbefore: "exit 0"
+    line: "{{ item }}"
+  with_items:
+      - echo ds1307 0x68 > /sys/class/i2c-adapter/i2c-1/new_device
+      - sudo hwclock -s
+      - date
