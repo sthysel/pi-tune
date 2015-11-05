@@ -13,6 +13,7 @@ keyboard_layout: us
 
 # Networking settings.
 networking_nameservers:
+  - "192.168.1.1"
   - "8.8.8.8"
   - "8.8.4.4"
 

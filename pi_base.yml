@@ -1,6 +1,6 @@
 ---
 - name: Trim down bloated raspian default install
-  hosts: bughotel 
+  hosts: pi 
   user: pi
   sudo: yes
 
